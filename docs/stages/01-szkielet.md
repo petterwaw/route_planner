@@ -30,14 +30,14 @@
    - `src/lib/api/client.ts`: pobieranie JSON i zamiana odpowiedzi `problem+json` na błąd z polami `code` i `detail`. `src/lib/api/types.ts`. `src/lib/time.ts`: przesunięcie zegara z pola `now`.
    - Układ: kolumna `max-w-md`, dolna nawigacja z dwiema zakładkami: Today (`/`) i Settings (`/settings`). Strona Settings jako zaślepka z nagłówkiem.
    - Strona główna (Today): nazwa aplikacji i stan backendu z `/api/health` (ładowanie, sukces, błąd po angielsku).
-   - Komponenty bazowe w `src/components/ui/`: `Button`, `Card`, `Spinner`, `ErrorState`, `EmptyState`.
+   - Komponenty z shadcn/ui (Radix) w `src/components/ui/`: `Button`, `Card`, `Alert`, `Empty`, `Spinner`. Na nich `LoadingState`, `ErrorState` i `EmptyState` w `src/components/feedback/`. ESLint z pełnym zestawem reguł `jsx-a11y`.
 4. **`scripts/smoke.sh`.** Sprawdza `GET /api/health`: status 200 i `"status":"ok"`. Kod wyjścia różny od zera przy błędzie. Adres backendu z parametru albo `http://localhost:8080`.
 5. **`README.md`.** Trzy krótkie akapity: co to jest, jak uruchomić, gdzie jest dokumentacja.
 6. **Dokumenty.** Popraw sekcję „Komendy" w `CLAUDE.md`. Wpisz faktyczne wersje do `docs/architecture.md`, sekcja 1. Opisz nowe narzędzia z punktów 7–11 w `docs/architecture.md` (sekcja 6) i w `.claude/rules/`. Usuń CI z „Poza zakresem" etapu 9.
 
 Punkty 7–11 dodane 2026-11-11 decyzją użytkownika: jakość kodu i proces pracy.
 
-Też 2026-11-11, decyzją użytkownika: cały interfejs i komunikaty API po angielsku (także `detail` błędów i komunikaty walidacji z punktu 2); dwie zakładki zamiast czterech; zamiast ekranu statystyk tylko CO2 dnia na ekranie Today; domyślna etykieta domu `Home` (poprawka w V1 jako wyjątek, bo migracja nie opuściła komputera).
+Też 2026-11-11, decyzją użytkownika: cały interfejs i komunikaty API po angielsku (także `detail` błędów i komunikaty walidacji z punktu 2); dwie zakładki zamiast czterech; zamiast ekranu statystyk tylko CO2 dnia na ekranie Today; domyślna etykieta domu `Home` (poprawka w V1 jako wyjątek, bo migracja nie opuściła komputera); gotowe, dostępne komponenty shadcn/ui na Radix zamiast własnych oraz pełne reguły `jsx-a11y` w ESLint.
 
 7. **Proces pracy w `/etap`** (`.claude/skills/etap/SKILL.md`).
    - Start etapu: gałąź `etap-NN-nazwa` od `main`.

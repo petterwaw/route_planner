@@ -155,20 +155,29 @@ Domyślny limit tras (150 dziennie) daje najwyżej 4650 zapytań w miesiącu, cz
 ```
 frontend/src/
 ├── app/
-│   ├── layout.tsx                # dostawca TanStack Query, dolna nawigacja (Today, Settings)
+│   ├── layout.tsx                # <html lang="en">, Providers, <main>, dolna nawigacja
+│   ├── providers.tsx             # dostawca TanStack Query (komponent kliencki)
 │   ├── page.tsx                  # Today
 │   ├── settings/page.tsx         # Settings: Home, Places, Schedule, Data sources
 │   └── settings/import/page.tsx  # Import ze zrzutu ekranu
 ├── components/
-│   ├── ui/                       # Button, Card, Chip, Field, Spinner, EmptyState, ErrorState
+│   ├── ui/                       # shadcn/ui na Radix, z `npx shadcn add`: button, card, alert, empty, spinner…
+│   ├── feedback/                 # LoadingState, ErrorState, EmptyState
+│   ├── layout/                   # BottomNav (Today, Settings)
+│   ├── health/                   # BackendStatus
 │   ├── day/                      # DayHeader, DayCo2, LegCard, OptionRow, SegmentList, Countdown
 │   ├── settings/                 # HomeForm, PlaceList, ProviderInfo
 │   ├── plan/                     # EventForm, EventList, PlaceSelect
 │   └── import/                   # UploadStep, ReviewTable
 └── lib/
-    ├── api/                  # client.ts, types.ts, queries.ts
-    └── time.ts               # czas serwera, formatowanie, odliczanie
+    ├── api/                      # client.ts, types.ts, queries.ts
+    ├── time.ts                   # czas serwera, formatowanie, odliczanie
+    └── utils.ts                  # cn() z shadcn
 ```
+
+- Komponenty: shadcn/ui na Radix UI, z dostępnością (ARIA, klawiatura, fokus) z Radix. Pełne reguły `eslint-plugin-jsx-a11y` jako błędy. Zasady: `.claude/rules/frontend.md`, sekcje „Interfejs" i „Dostępność".
+- `BACKEND_URL` czyta `next dev` przy starcie, a `next build` zapisuje go w zbudowanej aplikacji. Ustawienie go dopiero przy `next start` nic nie zmienia.
+- Gdy backend nie działa, proxy Next.js zwraca 500 ze zwykłym tekstem. `client.ts` zamienia to na błąd `UNAVAILABLE` z komunikatem dla użytkownika.
 
 - Przekierowanie `/api/:path*` do `BACKEND_URL` (domyślnie `http://localhost:8080`) w `next.config.ts`.
 - Czas: po każdej odpowiedzi z polem `now` zapisz `offset = now − Date.now()`. Odliczanie liczy się z `Date.now() + offset` i odświeża co 30 s bez pobierania danych.
