@@ -1,0 +1,29 @@
+# Sekrety i dane lokalne
+.env
+.env.local
+backend/.env
+frontend/.env.local
+backend/data/
+*.mv.db
+*.trace.db
+CLAUDE.local.md
+
+# Java / Maven
+target/
+*.class
+
+# Node / Next.js
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+
+# Systemowe i edytory
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.iml
+
+# Prywatne próbki do testów importu
+samples/

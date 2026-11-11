@@ -1,0 +1,4 @@
+# Shell scripts must keep LF line endings to run in Git Bash / WSL
+*.sh text eol=lf
+mvnw text eol=lf
+*.cmd text eol=crlf
