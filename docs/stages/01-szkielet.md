@@ -28,14 +28,16 @@
    - Przekierowanie `/api/:path*` do `BACKEND_URL` w `next.config.ts`.
    - TanStack Query z dostawcą w `layout.tsx`.
    - `src/lib/api/client.ts`: pobieranie JSON i zamiana odpowiedzi `problem+json` na błąd z polami `code` i `detail`. `src/lib/api/types.ts`. `src/lib/time.ts`: przesunięcie zegara z pola `now`.
-   - Układ: kolumna `max-w-md`, dolna nawigacja z czterema zakładkami. Strony Plan, Statystyki i Ustawienia jako zaślepki z nagłówkiem.
-   - Strona główna: nazwa aplikacji i stan backendu z `/api/health` (ładowanie, sukces, błąd po polsku).
+   - Układ: kolumna `max-w-md`, dolna nawigacja z dwiema zakładkami: Today (`/`) i Settings (`/settings`). Strona Settings jako zaślepka z nagłówkiem.
+   - Strona główna (Today): nazwa aplikacji i stan backendu z `/api/health` (ładowanie, sukces, błąd po angielsku).
    - Komponenty bazowe w `src/components/ui/`: `Button`, `Card`, `Spinner`, `ErrorState`, `EmptyState`.
 4. **`scripts/smoke.sh`.** Sprawdza `GET /api/health`: status 200 i `"status":"ok"`. Kod wyjścia różny od zera przy błędzie. Adres backendu z parametru albo `http://localhost:8080`.
 5. **`README.md`.** Trzy krótkie akapity: co to jest, jak uruchomić, gdzie jest dokumentacja.
 6. **Dokumenty.** Popraw sekcję „Komendy" w `CLAUDE.md`. Wpisz faktyczne wersje do `docs/architecture.md`, sekcja 1. Opisz nowe narzędzia z punktów 7–11 w `docs/architecture.md` (sekcja 6) i w `.claude/rules/`. Usuń CI z „Poza zakresem" etapu 9.
 
 Punkty 7–11 dodane 2026-11-11 decyzją użytkownika: jakość kodu i proces pracy.
+
+Też 2026-11-11, decyzją użytkownika: cały interfejs i komunikaty API po angielsku (także `detail` błędów i komunikaty walidacji z punktu 2); dwie zakładki zamiast czterech; zamiast ekranu statystyk tylko CO2 dnia na ekranie Today; domyślna etykieta domu `Home` (poprawka w V1 jako wyjątek, bo migracja nie opuściła komputera).
 
 7. **Proces pracy w `/etap`** (`.claude/skills/etap/SKILL.md`).
    - Start etapu: gałąź `etap-NN-nazwa` od `main`.
@@ -68,7 +70,7 @@ Punkty API inne niż Health, ekrany z danymi, dostawcy tras i AI, Docker.
 - [ ] Po starcie backendu `curl -s localhost:8080/api/health` zwraca `"status":"ok"`, `"routingProvider":"mock"` i `"aiProvider":"mock"`.
 - [ ] `cd frontend && npm run lint && npm run typecheck && npm run build` przechodzi.
 - [ ] Przy działających obu serwerach `curl -s localhost:3000/api/health` zwraca ten sam JSON co backend.
-- [ ] Strona główna pokazuje stan backendu, a po jego zatrzymaniu komunikat błędu po polsku.
+- [ ] Strona główna pokazuje stan backendu, a po jego zatrzymaniu komunikat błędu po angielsku.
 - [ ] `./scripts/smoke.sh` kończy się kodem 0 przy działającym backendzie i kodem różnym od zera przy zatrzymanym.
 - [ ] `git check-ignore backend/.env backend/data` potwierdza, że oba są ignorowane.
 - [ ] `CLAUDE.md` ma sprawdzone komendy, a `docs/architecture.md` faktyczne wersje.

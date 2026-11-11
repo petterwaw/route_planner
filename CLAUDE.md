@@ -18,7 +18,7 @@ Aplikacja webowa (MVP, jeden użytkownik, bez logowania). Użytkownik ma plan za
 | Plik | Kiedy czytać |
 |---|---|
 | `docs/product.md` | ekrany, przepływy, zakres MVP, czego nie robimy |
-| `docs/domain-rules.md` | łańcuch dnia, „nie zdążę", CO2, seria dni, przypadki testowe |
+| `docs/domain-rules.md` | łańcuch dnia, „nie zdążę", CO2, CO2 dnia, przypadki testowe |
 | `docs/architecture.md` | stos, struktura repo i pakietów, konfiguracja, testy, decyzje |
 | `docs/data-model.md` | tabele i migracje |
 | `docs/api.md` | kontrakt REST między frontendem a backendem |
@@ -74,7 +74,9 @@ Zweryfikuj i popraw tę sekcję w etapie 1, gdy komendy naprawdę działają.
 
 ## Język
 
-- Rozmowa z użytkownikiem, dokumenty i teksty w interfejsie: po polsku.
+- Rozmowa z użytkownikiem i dokumenty: po polsku.
+- Aplikacja w całości po angielsku: teksty w interfejsie, pole `detail` błędów API, komunikaty walidacji, opisy `summary`.
+- Gdy dokument cytuje tekst interfejsu po polsku, w aplikacji użyj angielskiego odpowiednika z `docs/product.md` albo wiernego tłumaczenia.
 - Kod, nazwy, komentarze i komunikaty commitów: po angielsku.
 
 ## Kompaktowanie

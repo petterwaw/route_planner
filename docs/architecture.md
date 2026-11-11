@@ -45,7 +45,7 @@ Wersje: stan na 11.11.2026 to Spring Boot 4.1.x (wersja 4.2 zapowiedziana na lis
 | `pl.zdaze.planning` | łańcuch dnia, planowanie odcinków, statusy, rekomendacja, migawki, `DayController` |
 | `pl.zdaze.routing` | port `RouteProvider`, typy zapytań i wyników, `ApiBudget`; podpakiety `mock` i `google` |
 | `pl.zdaze.co2` | współczynniki emisji i kalkulator |
-| `pl.zdaze.trip` | zapisane przejazdy i statystyki |
+| `pl.zdaze.trip` | zapisane przejazdy i CO2 dnia |
 | `pl.zdaze.importer` | port `ScheduleExtractor`, walidacja szkicu; podpakiety `mock` i `openai` |
 
 ### Porty
@@ -155,18 +155,16 @@ Domyślny limit tras (150 dziennie) daje najwyżej 4650 zapytań w miesiącu, cz
 ```
 frontend/src/
 ├── app/
-│   ├── layout.tsx            # dostawca TanStack Query, dolna nawigacja
-│   ├── page.tsx              # Dziś
-│   ├── plan/page.tsx         # Plan
-│   ├── plan/import/page.tsx  # Import
-│   ├── stats/page.tsx        # Statystyki
-│   └── settings/page.tsx     # Ustawienia
+│   ├── layout.tsx                # dostawca TanStack Query, dolna nawigacja (Today, Settings)
+│   ├── page.tsx                  # Today
+│   ├── settings/page.tsx         # Settings: Home, Places, Schedule, Data sources
+│   └── settings/import/page.tsx  # Import ze zrzutu ekranu
 ├── components/
-│   ├── ui/                   # Button, Card, Chip, Field, Spinner, EmptyState, ErrorState
-│   ├── day/                  # LegCard, OptionRow, SegmentList, Countdown, DayHeader
-│   ├── plan/                 # EventForm, EventList, PlaceSelect
-│   ├── import/               # UploadStep, ReviewTable
-│   └── stats/                # StatTile, WeekBars
+│   ├── ui/                       # Button, Card, Chip, Field, Spinner, EmptyState, ErrorState
+│   ├── day/                      # DayHeader, DayCo2, LegCard, OptionRow, SegmentList, Countdown
+│   ├── settings/                 # HomeForm, PlaceList, ProviderInfo
+│   ├── plan/                     # EventForm, EventList, PlaceSelect
+│   └── import/                   # UploadStep, ReviewTable
 └── lib/
     ├── api/                  # client.ts, types.ts, queries.ts
     └── time.ts               # czas serwera, formatowanie, odliczanie

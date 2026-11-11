@@ -19,4 +19,5 @@ Pomysły poza MVP. Agent dopisuje tu rzeczy, które wyszły w trakcie etapu, a n
 
 ## Dopisane w trakcie prac
 
-(puste)
+- Statystyki zbiorcze (suma, bieżący tydzień, słupki z 7 dni, `carKmAvoided`) i seria zielonych dni. Usunięte z MVP 2026-11-11 decyzją użytkownika; w MVP jest tylko CO2 dnia na ekranie Today. Dawne reguły i przypadki S1–S5 są w historii gita (`docs/domain-rules.md`, sekcja 11).
+- Zwierzak, którego nastrój zależy od zaoszczędzonego CO2 (dawny opcjonalny etap 10, usunięty 2026-11-11). Opis w historii gita: `docs/stages/10-zwierzak.md`.

@@ -20,17 +20,17 @@ paths:
 
 ## Interfejs
 
-- Najpierw telefon: projektuj dla szerokości 360 px, treść w kolumnie `max-w-md`. Dolna nawigacja z czterema zakładkami.
+- Najpierw telefon: projektuj dla szerokości 360 px, treść w kolumnie `max-w-md`. Dolna nawigacja z dwiema zakładkami: Today i Settings.
 - Tailwind i własne proste komponenty w `src/components/ui/`. Bez bibliotek komponentów.
-- Teksty po polsku, wpisane w komponentach (bez biblioteki i18n). Godziny w formacie 24-godzinnym, strefa `Europe/Warsaw` przez `Intl.DateTimeFormat`.
-- Każdy ekran ma stan ładowania, stan pusty i stan błędu z komunikatem po polsku.
+- Teksty po angielsku, wpisane w komponentach (bez biblioteki i18n). Godziny w formacie 24-godzinnym, strefa `Europe/Warsaw` przez `Intl.DateTimeFormat` z lokalizacją `en-GB`. Liczby z kropką dziesiętną („3.3 kg").
+- Każdy ekran ma stan ładowania, stan pusty i stan błędu z komunikatem po angielsku.
 - Kolor nie może być jedynym nośnikiem informacji. Status opcji ma też tekst.
 - Przyciski to `<button>`, pola mają `<label>`.
 
 ## Zależności
 
-Dozwolone bez pytania: `@tanstack/react-query` oraz `vitest` jako zależność deweloperska (od etapu 4). Każda inna wymaga zgody użytkownika.
+Dozwolone bez pytania: `@tanstack/react-query`, `vitest` jako zależność deweloperska (od etapu 4) oraz narzędzia formatowania z etapu 1 (`prettier`, `eslint-config-prettier`, `prettier-plugin-tailwindcss`). Każda inna wymaga zgody użytkownika.
 
 ## Kontrola
 
-`npm run lint && npm run typecheck && npm run build`. Czyste funkcje (czas, odliczanie) testuj w Vitest, gdy etap tego wymaga.
+`npm run lint && npm run format:check && npm run typecheck && npm run build`. Formatowanie: `npm run format`; po edycji pliku w `src/` hook Claude Code sam uruchamia na nim Prettier i ESLint. Czyste funkcje (czas, odliczanie) testuj w Vitest, gdy etap tego wymaga.

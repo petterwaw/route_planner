@@ -6,7 +6,7 @@
 
 ## Przeczytaj najpierw
 
-- `docs/product.md`: ekrany Plan i Ustawienia
+- `docs/product.md`: ekran Settings
 - `docs/data-model.md`: `settings`, `place`, `event`
 - `docs/api.md`: Ustawienia, Miejsca, Punkty planu, Błędy
 
@@ -20,9 +20,9 @@
 
 **Frontend**
 
-- Ustawienia: formularz adresu domu i bufora przyjazdu; lista miejsc z dodawaniem, edycją i usuwaniem; informacja o dostawcach z Health.
-- Plan: lista tygodnia i sekcja „Jednorazowe"; formularz punktu (dodawanie i edycja); usuwanie z potwierdzeniem; wybór miejsca z możliwością dodania nowego bez wychodzenia z formularza.
-- Dziś: gdy `setupComplete` jest fałszem, karta z odesłaniem do Ustawień.
+- Settings, sekcje Home, Places i Data sources: formularz adresu domu i bufora przyjazdu; lista miejsc z dodawaniem, edycją i usuwaniem; informacja o dostawcach z Health.
+- Settings, sekcja Schedule: lista tygodnia i grupa „One-off"; formularz punktu (dodawanie i edycja); usuwanie z potwierdzeniem; wybór miejsca z możliwością dodania nowego bez wychodzenia z formularza.
+- Today: gdy `setupComplete` jest fałszem, karta z odesłaniem do Settings.
 - Błędy z API pokazuj tekstem z pola `detail`.
 
 **Skrypty**
@@ -31,7 +31,7 @@
 
 ## Poza zakresem
 
-Import, plan dnia, trasy, przycisk „Importuj ze zdjęcia".
+Import, plan dnia, trasy, przycisk „Import from screenshot".
 
 ## Kryteria akceptacji
 
@@ -48,6 +48,6 @@ Import, plan dnia, trasy, przycisk „Importuj ze zdjęcia".
 
 ```
 cd backend && ./mvnw verify
-cd frontend && npm run lint && npm run typecheck && npm run build
+cd frontend && npm run lint && npm run format:check && npm run typecheck && npm run build
 ./scripts/smoke.sh && ./scripts/smoke.sh
 ```

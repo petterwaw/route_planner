@@ -23,7 +23,7 @@ REST między frontendem a backendem. Typy w `frontend/src/lib/api/types.ts` maj�
 `GET /api/settings`, `PUT /api/settings`
 
 ```json
-{ "homeLabel": "Dom", "homeAddress": "ul. Przykładowa 1, Gdańsk", "arrivalBufferMin": 5, "setupComplete": true }
+{ "homeLabel": "Home", "homeAddress": "ul. Przykładowa 1, Gdańsk", "arrivalBufferMin": 5, "setupComplete": true }
 ```
 
 - `PUT` przyjmuje `homeLabel` (1–60 znaków), `homeAddress` (3–255 znaków albo `null`), `arrivalBufferMin` (0–60).
@@ -93,6 +93,7 @@ Zakres dat: od 30 dni wstecz do 30 dni naprzód, inaczej 400 `DATE_OUT_OF_RANGE`
   "date": "2026-11-17",
   "now": "2026-11-17T06:00:00+01:00",
   "setupComplete": true,
+  "savedCo2Grams": 0,
   "events": [
     {
       "id": 1,
@@ -107,7 +108,7 @@ Zakres dat: od 30 dni wstecz do 30 dni naprzód, inaczej 400 `DATE_OUT_OF_RANGE`
       "legKey": "to-event-1",
       "kind": "TO_EVENT",
       "eventId": 1,
-      "origin": { "label": "Dom", "address": "ul. Przykładowa 1, Gdańsk" },
+      "origin": { "label": "Home", "address": "ul. Przykładowa 1, Gdańsk" },
       "destination": { "label": "Wydział", "address": "ul. Uczelniana 2, Gdańsk" },
       "deadline": "2026-11-17T08:15:00+01:00",
       "arriveBy": "2026-11-17T08:10:00+01:00",
@@ -133,7 +134,7 @@ Zakres dat: od 30 dni wstecz do 30 dni naprzód, inaczej 400 `DATE_OUT_OF_RANGE`
           "recommended": true,
           "co2Grams": 770,
           "savedCo2Grams": 3310,
-          "summary": "Pociąg R · 07:27 Gdańsk Główny → Pszczółki",
+          "summary": "Train R · 07:27 Gdańsk Główny → Pszczółki",
           "segments": [
             { "kind": "WALK", "durationMin": 6, "distanceMeters": 500 },
             {
@@ -159,6 +160,8 @@ Zakres dat: od 30 dni wstecz do 30 dni naprzód, inaczej 400 `DATE_OUT_OF_RANGE`
 }
 ```
 
+`savedCo2Grams` to CO2 zaoszczędzone w tym dniu według sekcji 11 reguł; 0, gdy nie ma zapisów. Do etapu 7, który dodaje zapisy przejazdów, zawsze 0.
+
 Pola odcinka:
 
 | Pole | Opis |
@@ -182,9 +185,9 @@ Pola opcji:
 | `status` | `ON_TIME`, `LATE`, `MISSED` |
 | `slackMin` | zapas do terminu; puste dla odcinka `HOME` |
 | `segments` | tylko `TRANSIT`; dla innych trybów pusta lista |
-| `summary` | krótki opis po polsku |
+| `summary` | krótki opis po angielsku |
 
-Wzorce `summary`: „Pociąg R · 07:27 Gdańsk Główny → Pszczółki" (pierwszy przejazd; przy kolejnych dopisz „+ 1 przesiadka"), „Auto · 24 km", „Rower · 5,2 km", „Pieszo · 1,4 km". Nazwy pojazdów: `RAIL` Pociąg, `BUS` Autobus, `TRAM` Tramwaj, `SUBWAY` Metro, `FERRY` Prom, `OTHER` Przejazd.
+Wzorce `summary`: „Train R · 07:27 Gdańsk Główny → Pszczółki" (pierwszy przejazd; przy kolejnych dopisz „+ 1 transfer" albo „+ 2 transfers"), „Car · 24 km", „Bike · 5.2 km", „Walk · 1.4 km". Nazwy pojazdów: `RAIL` Train, `BUS` Bus, `TRAM` Tram, `SUBWAY` Metro, `FERRY` Ferry, `OTHER` Transit.
 
 Opcje są już posortowane według sekcji 8 reguł. Frontend zachowuje kolejność.
 
@@ -200,7 +203,7 @@ Opcje są już posortowane według sekcji 8 reguł. Frontend zachowuje kolejnoś
 
 `PUT /api/days/{date}/legs/{legKey}/log` z treścią `{ "optionId": "TRANSIT-0721-0803" }`
 
-- Szuka opcji w migawkach odcinka. Brak opcji: 409 `OPTION_NOT_FOUND` („Plan się zmienił, odśwież").
+- Szuka opcji w migawkach odcinka. Brak opcji: 409 `OPTION_NOT_FOUND` („The plan has changed, please refresh.").
 - Odpowiedź: `{ "now": "...", "leg": { ... } }`, odcinek ma `state` `DONE` i wypełnione `log`.
 
 `DELETE /api/days/{date}/legs/{legKey}/log` usuwa zapis i zwraca odcinek w tym samym kształcie.
@@ -208,7 +211,7 @@ Opcje są już posortowane według sekcji 8 reguł. Frontend zachowuje kolejnoś
 ```json
 {
   "mode": "TRANSIT",
-  "summary": "Pociąg R · 07:27 Gdańsk Główny → Pszczółki",
+  "summary": "Train R · 07:27 Gdańsk Główny → Pszczółki",
   "distanceMeters": 22800,
   "co2Grams": 770,
   "baselineCo2Grams": 4080,
@@ -217,32 +220,7 @@ Opcje są już posortowane według sekcji 8 reguł. Frontend zachowuje kolejnoś
 }
 ```
 
-## Statystyki (etap 7)
-
-`GET /api/stats`
-
-```json
-{
-  "now": "2026-11-19T18:00:00+01:00",
-  "totalSavedGrams": 12840,
-  "weekSavedGrams": 5320,
-  "tripsLogged": 14,
-  "greenTrips": 11,
-  "streakDays": 3,
-  "carKmAvoided": 75.5,
-  "last7Days": [
-    { "date": "2026-11-13", "savedGrams": 0, "trips": 0 },
-    { "date": "2026-11-14", "savedGrams": 0, "trips": 0 },
-    { "date": "2026-11-15", "savedGrams": 0, "trips": 0 },
-    { "date": "2026-11-16", "savedGrams": 0, "trips": 0 },
-    { "date": "2026-11-17", "savedGrams": 3310, "trips": 2 },
-    { "date": "2026-11-18", "savedGrams": 1240, "trips": 2 },
-    { "date": "2026-11-19", "savedGrams": 770, "trips": 1 }
-  ]
-}
-```
-
-`last7Days` ma zawsze 7 pozycji, od najstarszej, a ostatnia to dziś.
+Po zapisie i cofnięciu frontend pobiera plan dnia ponownie, żeby odświeżyć `savedCo2Grams`.
 
 ## Import planu z obrazu (etap 8)
 
@@ -263,7 +241,7 @@ Opcje są już posortowane według sekcji 8 reguł. Frontend zachowuje kolejnoś
       "note": "wykład"
     }
   ],
-  "warnings": ["Nie udało się odczytać dwóch pól w kolumnie piątku."],
+  "warnings": ["Could not read two fields in the Friday column."],
   "provider": "openai",
   "model": "nazwa-modelu"
 }
@@ -276,12 +254,12 @@ Opcje są już posortowane według sekcji 8 reguł. Frontend zachowuje kolejnoś
   "type": "about:blank",
   "title": "Conflict",
   "status": 409,
-  "detail": "Miejsce jest używane przez 3 punkty planu.",
+  "detail": "This place is used by 3 events.",
   "code": "PLACE_IN_USE"
 }
 ```
 
-Pole `detail` jest po polsku i nadaje się do pokazania użytkownikowi. Błąd walidacji ma dodatkowo `errors`: listę wpisów z `field` i `message`.
+Pole `detail` jest po angielsku i nadaje się do pokazania użytkownikowi. Błąd walidacji ma dodatkowo `errors`: listę wpisów z `field` i `message`; `message` też jest po angielsku.
 
 | Kod | Status | Kiedy |
 |---|---|---|

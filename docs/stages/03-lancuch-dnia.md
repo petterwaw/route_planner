@@ -42,7 +42,7 @@ Wyniki mają być deterministyczne i wyglądać realistycznie.
 
 ## Poza zakresem
 
-Frontend, dostawca Google, tryb „na żywo", zapis przejazdu, statystyki.
+Frontend, dostawca Google, tryb „na żywo", zapis przejazdu (do etapu 7 pole `savedCo2Grams` planu dnia zawsze wynosi 0).
 
 ## Kryteria akceptacji
 

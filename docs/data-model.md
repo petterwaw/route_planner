@@ -30,7 +30,7 @@ Zawsze dokładnie jeden wiersz, `id = 1`.
 | Kolumna | Typ | Uwagi |
 |---|---|---|
 | `id` | SMALLINT | PK, CHECK `id = 1` |
-| `home_label` | VARCHAR(60) | NOT NULL, domyślnie `Dom` |
+| `home_label` | VARCHAR(60) | NOT NULL, domyślnie `Home` |
 | `home_address` | VARCHAR(255) | NULL, dopóki użytkownik go nie poda |
 | `arrival_buffer_min` | INT | NOT NULL, domyślnie 5, zakres 0–60 |
 | `updated_at` | TIMESTAMP WITH TIME ZONE | NOT NULL |

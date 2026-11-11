@@ -15,7 +15,7 @@
 
 1. **README.md.** Co to jest i dla kogo; 3–5 zrzutów ekranu; schemat architektury (Mermaid); uruchomienie w trybie danych testowych i z kluczami; ograniczenia MVP; źródło współczynników emisji; sekcja „Jak używałem AI" napisana na podstawie `docs/ai-log.md`, razem z tym, co poszło źle.
 2. **Dane demonstracyjne.** `scripts/seed-demo.sh` tworzy realistyczny tydzień zajęć w co najmniej dwóch miejscach.
-3. **Scenariusz pokazu** w `docs/demo.md`, na około 3 minuty: zwykły poranek, spóźnienie (z wartością `APP_CLOCK_FIXED`), wybór opcji i statystyki, import ze zrzutu ekranu. Przy każdym kroku: co kliknąć i co powinno być widać.
+3. **Scenariusz pokazu** w `docs/demo.md`, na około 3 minuty: zwykły poranek, spóźnienie (z wartością `APP_CLOCK_FIXED`), wybór opcji i CO2 dnia, import ze zrzutu ekranu. Przy każdym kroku: co kliknąć i co powinno być widać.
 4. **Przegląd interfejsu.** Każdy ekran przy szerokości 360 px i na komputerze; stany ładowania, pusty i błędu; spójne teksty; widoczny fokus z klawiatury; etykiety pól; wystarczający kontrast.
 5. **Przegląd spójności.** `docs/api.md` zgodne z kontrolerami i `types.ts`; `docs/data-model.md` zgodne z migracjami; `CLAUDE.md` zgodne z rzeczywistymi komendami. Rozbieżności popraw w dokumentach albo w kodzie i wypisz w podsumowaniu.
 6. **Sprzątanie.** Martwy kod, zostawione `TODO`, nadmiarowe logi, nieużywane zależności.

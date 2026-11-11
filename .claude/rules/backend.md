@@ -21,6 +21,7 @@ paths:
 
 ## Zasady
 
+- Teksty dla użytkownika po angielsku: `detail` błędów, komunikaty walidacji, opisy `summary`.
 - Czas: wstrzykuj `java.time.Clock`. Strefa z konfiguracji (`Europe/Warsaw`).
 - Błędy: `ProblemDetail` z polem `code` (lista kodów w `docs/api.md`), przez jeden `@RestControllerAdvice`.
 - Walidacja: `jakarta.validation` na DTO wejściowych.

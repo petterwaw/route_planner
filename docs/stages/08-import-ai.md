@@ -8,7 +8,7 @@
 
 - `docs/integrations/ai-import.md`: całość
 - `docs/api.md`: Import planu z obrazu, `POST /api/events/bulk`, Błędy
-- `docs/product.md`: ekran Import
+- `docs/product.md`: ekran Import i sekcja Schedule ekranu Settings
 - `docs/architecture.md`: sekcja 3 (Porty, Konfiguracja) i sekcja 4 (dzienny limit)
 
 ## Zanim zaczniesz
@@ -29,9 +29,9 @@ Zapytaj użytkownika, którego dostawcy AI używa i czy klucz jest w `backend/.e
 
 **Frontend**
 
-- Przycisk „Importuj ze zdjęcia" na ekranie Plan.
-- Ekran `/plan/import` w czterech krokach według `docs/product.md`: wybór pliku z informacją o wysyłce do zewnętrznego modelu, stan oczekiwania, tabela przeglądu, zapis.
-- Tabela przeglądu: edycja pól w wierszu, usuwanie wiersza, przypisanie miejsca w wierszu, akcja „Ustaw to miejsce dla wszystkich z tą samą lokalizacją", dodanie nowego miejsca bez wychodzenia z ekranu.
+- Przycisk „Import from screenshot" w sekcji Schedule ekranu Settings.
+- Podstrona `/settings/import` w czterech krokach według `docs/product.md`: wybór pliku z informacją o wysyłce do zewnętrznego modelu, stan oczekiwania, tabela przeglądu, zapis.
+- Tabela przeglądu: edycja pól w wierszu, usuwanie wiersza, przypisanie miejsca w wierszu, akcja „Use this place for all rows with the same location", dodanie nowego miejsca bez wychodzenia z ekranu.
 - Zapis jest zablokowany, dopóki któryś wiersz nie ma miejsca albo ma błąd. Błędy z `POST /api/events/bulk` pokazuj przy właściwym wierszu (pola `index` i `field`).
 - Komunikaty dla każdego kodu błędu importu.
 
@@ -50,14 +50,14 @@ Import z tekstu, PDF i `.ics`, zapamiętywanie przypisań lokalizacji, przechowy
 - [ ] Testy kontrolera z dostawcą `mock`: poprawny PNG; plik o złym typie mimo rozszerzenia `.png` (400); plik za duży (413); wyczerpany limit (429 `AI_LIMIT`).
 - [ ] Żaden test nie łączy się z siecią. Obraz nie jest zapisywany na dysk ani logowany.
 - [ ] `./mvnw verify`, kontrola frontendu i `./scripts/smoke.sh` przechodzą.
-- [ ] Ręcznie na `mock`: pełne przejście od wyboru pliku do punktów widocznych na ekranie Plan, w tym przypisanie jednego miejsca wielu wierszom.
+- [ ] Ręcznie na `mock`: pełne przejście od wyboru pliku do punktów widocznych w sekcji Schedule ekranu Settings, w tym przypisanie jednego miejsca wielu wierszom.
 - [ ] Z kluczem: użytkownik wgrywa własny zrzut ekranu. Wynik (model, liczba wierszy poprawnych na liczbę wszystkich, co model pomylił) jest zapisany w `docs/ai-log.md`.
 
 ## Weryfikacja
 
 ```
 cd backend && ./mvnw verify
-cd frontend && npm run lint && npm run typecheck && npm run test && npm run build
+cd frontend && npm run lint && npm run format:check && npm run typecheck && npm run test && npm run build
 ./scripts/smoke.sh
 ```
 

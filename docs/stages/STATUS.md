@@ -7,13 +7,12 @@ Agent czyta ten plik na początku każdej sesji i aktualizuje go przy rozpoczęc
 | 1 | Szkielet projektu | `01-szkielet.md` | brak | nie | w toku | 2026-11-11 | |
 | 2 | Plan ręczny | `02-plan-reczny.md` | 1 | nie | do zrobienia | | |
 | 3 | Łańcuch dnia (backend) | `03-lancuch-dnia.md` | 2 | nie | do zrobienia | | |
-| 4 | Ekran „Dziś" | `04-ekran-dzis.md` | 3 | nie | do zrobienia | | |
+| 4 | Ekran Today | `04-ekran-dzis.md` | 3 | nie | do zrobienia | | |
 | 5 | Trasy z Google | `05-google-routes.md` | 3 | Google | do zrobienia | | |
 | 6 | „Nie zdążę" | `06-nie-zdaze.md` | 4 | nie | do zrobienia | | |
-| 7 | Wybór przejazdu i statystyki | `07-wybor-i-statystyki.md` | 4 | nie | do zrobienia | | |
+| 7 | Wybór przejazdu i CO2 dnia | `07-wybor-i-co2-dnia.md` | 4 | nie | do zrobienia | | |
 | 8 | Import planu ze zrzutu ekranu (AI) | `08-import-ai.md` | 2 | AI | do zrobienia | | |
 | 9 | Szlif i demo | `09-szlif-i-demo.md` | 1–8 | nie | do zrobienia | | |
-| 10 | Zwierzak (opcjonalny) | `10-zwierzak.md` | 7 | nie | do zrobienia | | |
 
 ## Kolejność
 

@@ -1,6 +1,6 @@
 # Reguły domenowe
 
-Źródło prawdy dla logiki planu dnia, statusów, CO2 i statystyk. Etapy wskazują numery sekcji do przeczytania. Przypadki z sekcji 12 zamień na testy jednostkowe.
+Źródło prawdy dla logiki planu dnia, statusów, CO2 i CO2 dnia. Etapy wskazują numery sekcji do przeczytania. Przypadki z sekcji 12 zamień na testy jednostkowe.
 
 Wszystkie godziny są w strefie `Europe/Warsaw`. „Teraz" (`now`) pochodzi z wstrzykniętego zegara.
 
@@ -149,20 +149,11 @@ Wzory:
 - Zapisać można każdą opcję obecną w migawce odcinka, także `MISSED` (użytkownik zaznacza po fakcie).
 - Późniejsza zmiana współczynników nie zmienia zapisanych przejazdów.
 
-## 11. Statystyki i seria
+## 11. CO2 dnia
 
-- `totalSavedGrams`: suma `savedCo2Grams` wszystkich zapisów.
-- `weekSavedGrams`: suma z bieżącego tygodnia (poniedziałek–niedziela).
-- `greenTrips`: liczba zapisów z `savedCo2Grams > 0`.
-- `carKmAvoided = totalSavedGrams / 170`, jedno miejsce po przecinku.
-- **Dzień zielony**: suma `savedCo2Grams` zapisów z tego dnia jest większa od zera.
-- **Seria** (`streakDays`): idziemy wstecz od dziś.
-  - Dzień ma zapisy i jest zielony: licznik +1, idziemy dalej.
-  - Dzień ma zapisy i nie jest zielony: koniec.
-  - Dzień nie ma zapisów: jeśli to dziś albo dzień bez wystąpień w aktualnym planie, pomijamy go; w przeciwnym razie koniec.
-  - Nie cofamy się dalej niż 365 dni.
-
-Uproszczenie MVP: dni wolne oceniamy według aktualnego planu, nie historycznego.
+- `savedCo2Grams` dnia D: suma `savedCo2Grams` wszystkich zapisów z datą D. Brak zapisów: 0.
+- Liczą się wszystkie zapisy z tej daty, także te, których odcinka nie ma już w łańcuchu (np. punkt planu usunięto po zapisie). Zapis zostaje w historii (`docs/data-model.md`, `trip_log`).
+- To jedyna statystyka w MVP. Ekran Today pokazuje ją na górze dla wybranego dnia.
 
 ## 12. Przypadki testowe
 
@@ -206,12 +197,12 @@ Rekomendacja:
 | R2 | tramwaj 15 min i 84 g, rower 12 min i 0 g, auto 10 min i 510 g | rower |
 | R3 | brak `ON_TIME`; `LATE`: pociąg dotarcie 08:23, auto dotarcie 08:19 | auto |
 
-Seria (dziś jest środa, zajęcia od poniedziałku do piątku):
+CO2 dnia (plan dnia jak wyżej, data D):
 
-| Nr | Zapisy | `streakDays` |
+| Nr | Zapisy | `savedCo2Grams` dnia D |
 |---|---|---|
-| S1 | zielone: pon., wt., śr. | 3 |
-| S2 | zielone: pon., wt.; środa jeszcze bez zapisów | 2 |
-| S3 | zielone: pon., śr.; wtorek bez zapisów | 1 |
-| S4 | zielone: pt. poprzedniego tygodnia, pon., wt., śr.; weekend bez zajęć i zapisów | 4 |
-| S5 | wtorek ma zapis tylko autem (0 g); zielone: pon., śr. | 1 |
+| D1 | brak zapisów | 0 |
+| D2 | `to-event-1` opcja C1 (3310 g), `home` opcja C2 (0 g) | 3310 |
+| D3 | `to-event-1` opcja C1, potem ponowny wybór C2 dla tego samego odcinka | 0 |
+| D4 | `to-event-1` opcja C1 z datą D, `to-event-3` opcja C4 z datą D+1 | 3310 |
+| D5 | `to-event-3` opcja C4 (3516 g), potem usunięty punkt E3 | 3516 |
