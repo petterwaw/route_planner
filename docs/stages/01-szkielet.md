@@ -33,11 +33,33 @@
    - Komponenty bazowe w `src/components/ui/`: `Button`, `Card`, `Spinner`, `ErrorState`, `EmptyState`.
 4. **`scripts/smoke.sh`.** Sprawdza `GET /api/health`: status 200 i `"status":"ok"`. Kod wyjścia różny od zera przy błędzie. Adres backendu z parametru albo `http://localhost:8080`.
 5. **`README.md`.** Trzy krótkie akapity: co to jest, jak uruchomić, gdzie jest dokumentacja.
-6. **Dokumenty.** Popraw sekcję „Komendy" w `CLAUDE.md`. Wpisz faktyczne wersje do `docs/architecture.md`, sekcja 1.
+6. **Dokumenty.** Popraw sekcję „Komendy" w `CLAUDE.md`. Wpisz faktyczne wersje do `docs/architecture.md`, sekcja 1. Opisz nowe narzędzia z punktów 7–11 w `docs/architecture.md` (sekcja 6) i w `.claude/rules/`. Usuń CI z „Poza zakresem" etapu 9.
+
+Punkty 7–11 dodane 2026-11-11 decyzją użytkownika: jakość kodu i proces pracy.
+
+7. **Proces pracy w `/etap`** (`.claude/skills/etap/SKILL.md`).
+   - Start etapu: gałąź `etap-NN-nazwa` od `main`.
+   - Wykonanie: po każdym punkcie planu krótki raport (co powstało, wynik testów) i czekanie na zgodę użytkownika.
+   - Logika domenowa: najpierw testy z przypadków w `docs/domain-rules.md`, uruchomione i czerwone, pokazane użytkownikowi. Implementacja dopiero po jego akceptacji.
+   - Zamknięcie: `/code-review` na diffie gałęzi. Push i pull request do `main` tylko na polecenie użytkownika.
+8. **Formatowanie.**
+   - Backend: wtyczka Spotless z `palantir-java-format`, `spotless:check` podpięty pod `verify`.
+   - Frontend: Prettier z `eslint-config-prettier` i `prettier-plugin-tailwindcss`. Skrypty `format` i `format:check`; `format:check` wchodzi do komendy kontrolnej.
+   - Jednorazowe sformatowanie istniejącego kodu osobnym commitem.
+9. **Zasady architektury jako testy (ArchUnit)** w `ArchitectureTest`:
+   - żadnych wywołań `now()` bez `Clock` (`Instant`, `LocalDate`, `LocalTime`, `LocalDateTime`, `OffsetDateTime`, `ZonedDateTime`);
+   - kontrolery nie zależą od repozytoriów Spring Data i nie zwracają encji JPA;
+   - `RestClient` tylko w adapterach `routing.google` i `importer.openai`;
+   - klasy spoza `pl.zdaze.routing` nie zależą od `routing.google` ani `routing.mock`; analogicznie dla `importer.openai` i `importer.mock`;
+   - brak cykli między pakietami funkcji `pl.zdaze.*`;
+   - brak wstrzykiwania przez pola i brak `System.out` oraz `System.err`.
+   - Reguły dla pakietów, które jeszcze nie istnieją, nie mogą psuć testów.
+10. **Hooki Claude Code** w `.claude/settings.json`: po każdej edycji pliku w `frontend/src/` uruchamiają Prettier i ESLint z `--fix` na tym pliku. Błąd, którego nie da się poprawić automatycznie, wraca do agenta. Javy hook nie sprawdza (Maven po każdej edycji jest za wolny); robi to `./mvnw verify`.
+11. **CI.** `.github/workflows/ci.yml`: przy pushu do `main` i przy pull requeście uruchamia komendy kontrolne backendu i frontendu. Bez kluczy i bez połączeń z zewnętrznymi API.
 
 ## Poza zakresem
 
-Punkty API inne niż Health, ekrany z danymi, dostawcy tras i AI, Docker, CI.
+Punkty API inne niż Health, ekrany z danymi, dostawcy tras i AI, Docker.
 
 ## Kryteria akceptacji
 
@@ -50,12 +72,19 @@ Punkty API inne niż Health, ekrany z danymi, dostawcy tras i AI, Docker, CI.
 - [ ] `./scripts/smoke.sh` kończy się kodem 0 przy działającym backendzie i kodem różnym od zera przy zatrzymanym.
 - [ ] `git check-ignore backend/.env backend/data` potwierdza, że oba są ignorowane.
 - [ ] `CLAUDE.md` ma sprawdzone komendy, a `docs/architecture.md` faktyczne wersje.
+- [ ] `/etap` opisuje gałąź etapu, zatrzymanie po każdym punkcie planu, punkt kontrolny TDD, `/code-review` oraz push i pull request na polecenie użytkownika.
+- [ ] Źle sformatowany plik Java powoduje błąd `./mvnw verify`, a po `./mvnw spotless:apply` weryfikacja przechodzi.
+- [ ] `npm run format:check` przechodzi i jest częścią komendy kontrolnej frontendu.
+- [ ] `ArchitectureTest` działa w `./mvnw verify`. Celowe naruszenie (np. `LocalDateTime.now()` bez zegara) powoduje błąd testu.
+- [ ] Hook: edycja pliku `.tsx` ze złym formatowaniem kończy się sformatowanym plikiem, a błąd ESLint wraca do agenta.
+- [ ] Workflow CI przechodzi na GitHubie dla pull requesta etapu 1 (`gh pr checks`).
+- [ ] `/code-review` uruchomiony na diffie etapu; zgłoszenia poprawione albo opisane.
 
 ## Weryfikacja
 
 ```
 cd backend && ./mvnw verify
-cd frontend && npm run lint && npm run typecheck && npm run build
+cd frontend && npm run lint && npm run format:check && npm run typecheck && npm run build
 ./scripts/smoke.sh
 ```
 
