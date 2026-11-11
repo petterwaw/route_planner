@@ -48,8 +48,19 @@ Zweryfikuj i popraw tę sekcję w etapie 1, gdy komendy naprawdę działają.
 - Frontend, start: `cd frontend && npm run dev`
 - Test dymny API (backend musi działać): `./scripts/smoke.sh`
 
+## Git
+
+- Repozytorium: `https://github.com/petterwaw/route_planner`, gałąź główna `main`.
+- Każdy etap, nowa funkcja i większa zmiana kodu powstaje na osobnej gałęzi (np. `etap-02-plan-reczny`), nie na `main`.
+- Commituj często, po każdej większej zmianie kodu.
+- Komunikat commita: jedna krótka linia po angielsku (Conventional Commits), opisująca zmianę. Bez podpisów, bez `Co-Authored-By`, bez wzmianek o Claude czy AI.
+- Push i scalanie do `main` tylko na polecenie użytkownika.
+
 ## Twarde zasady
 
+- **Nic bez zgody użytkownika.** Rozmowa o pomyśle to nie zgoda na wdrożenie. Kod piszesz dopiero po wyraźnej akceptacji.
+- **Zgoda obejmuje tylko to, co zaakceptowano.** „Dalej" oznacza następny uzgodniony krok, nigdy resztę etapu, kolejny etap ani całą aplikację.
+- **Architekturę decyduje użytkownik.** Każda decyzja spoza dokumentów (nowy pakiet, warstwa, wzorzec, biblioteka, zmiana kontraktu API lub modelu danych) wymaga pytania, zanim powstanie kod.
 - **Brak logowania i kont.** Jeden użytkownik. Nie dodawaj autoryzacji, ról ani tabeli użytkowników.
 - **Testy nigdy nie wołają zewnętrznych API** (Google, AI). W testach i domyślnie w trybie deweloperskim działają dostawcy `mock`.
 - **Sekrety tylko w zmiennych środowiskowych** (`backend/.env`, poza gitem). Klucz nie może trafić do kodu, logów, commitów ani do frontendu.
