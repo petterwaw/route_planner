@@ -42,9 +42,11 @@ Konwencje kodu są w `.claude/rules/backend.md` i `.claude/rules/frontend.md`. �
 
 Zweryfikuj i popraw tę sekcję w etapie 1, gdy komendy naprawdę działają.
 
-- Backend, testy: `cd backend && ./mvnw verify`
+- Backend, testy i formatowanie: `cd backend && ./mvnw verify` (zawiera `spotless:check`)
+- Backend, sformatuj kod: `cd backend && ./mvnw spotless:apply`
 - Backend, start: `cd backend && ./mvnw spring-boot:run`
-- Frontend, kontrola: `cd frontend && npm run lint && npm run typecheck && npm run build`
+- Frontend, kontrola: `cd frontend && npm run lint && npm run format:check && npm run typecheck && npm run build`
+- Frontend, sformatuj kod: `cd frontend && npm run format`
 - Frontend, start: `cd frontend && npm run dev`
 - Test dymny API (backend musi działać): `./scripts/smoke.sh`
 
