@@ -15,8 +15,8 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 /**
- * Turns every error into {@code application/problem+json} with an extra {@code code} field and a
- * Polish {@code detail} that the frontend can show as is (docs/api.md, "Błędy").
+ * Turns every error into {@code application/problem+json} with an extra {@code code} field and an
+ * English {@code detail} that the frontend can show as is (docs/api.md, "Błędy").
  */
 @RestControllerAdvice
 class ApiExceptionHandler extends ResponseEntityExceptionHandler {
@@ -70,14 +70,14 @@ class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
     private static String detailFor(HttpStatusCode status) {
         if (status.value() == 404) {
-            return "Nie znaleziono zasobu.";
+            return "Resource not found.";
         }
         if (status.value() == 400) {
-            return "Niepoprawne dane wejściowe.";
+            return "Invalid input.";
         }
         if (status.is4xxClientError()) {
-            return "Niepoprawne żądanie.";
+            return "Invalid request.";
         }
-        return "Wystąpił nieoczekiwany błąd serwera. Spróbuj ponownie później.";
+        return "An unexpected server error occurred. Please try again later.";
     }
 }

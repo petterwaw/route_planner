@@ -13,6 +13,11 @@ spring:
     hibernate:
       ddl-auto: validate
     open-in-view: false
+  # The whole app speaks English (CLAUDE.md, "Język"): ignore Accept-Language and the OS locale,
+  # so validation messages are always English.
+  web:
+    locale: en
+    locale-resolver: fixed
 
 server:
   port: 8080

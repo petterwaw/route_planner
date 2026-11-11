@@ -28,6 +28,6 @@ class UnknownApiPathTest {
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_PROBLEM_JSON))
                 .andExpect(jsonPath("$.status").value(404))
                 .andExpect(jsonPath("$.code").value("NOT_FOUND"))
-                .andExpect(jsonPath("$.detail").value("Nie znaleziono zasobu."));
+                .andExpect(jsonPath("$.detail").value("Resource not found."));
     }
 }

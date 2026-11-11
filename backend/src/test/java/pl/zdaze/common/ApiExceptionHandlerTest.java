@@ -54,7 +54,7 @@ class ApiExceptionHandlerTest {
                 .andExpect(status().isBadRequest())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_PROBLEM_JSON))
                 .andExpect(jsonPath("$.code").value("VALIDATION_ERROR"))
-                .andExpect(jsonPath("$.detail").value("Niepoprawne dane wejściowe."))
+                .andExpect(jsonPath("$.detail").value("Invalid input."))
                 .andExpect(jsonPath("$.errors[0].field").value("name"))
                 .andExpect(jsonPath("$.errors[0].message").isNotEmpty());
     }

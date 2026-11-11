@@ -27,7 +27,7 @@ class SettingsMigrationTest {
         assertThat(rows).hasSize(1);
         Map<String, Object> row = rows.getFirst();
         assertThat(((Number) row.get("ID")).intValue()).isEqualTo(1);
-        assertThat(row.get("HOME_LABEL")).isEqualTo("Dom");
+        assertThat(row.get("HOME_LABEL")).isEqualTo("Home");
         assertThat(row.get("HOME_ADDRESS")).isNull();
         assertThat(((Number) row.get("ARRIVAL_BUFFER_MIN")).intValue()).isEqualTo(5);
         assertThat(row.get("UPDATED_AT")).isNotNull();
@@ -36,7 +36,7 @@ class SettingsMigrationTest {
     @Test
     void databaseRejectsASecondSettingsRow() {
         assertThatThrownBy(() -> jdbc.sql("INSERT INTO settings (id, home_label, arrival_buffer_min, updated_at)"
-                                + " VALUES (2, 'Drugi', 5, CURRENT_TIMESTAMP)")
+                                + " VALUES (2, 'Second', 5, CURRENT_TIMESTAMP)")
                         .update())
                 .isInstanceOf(DataAccessException.class);
     }
