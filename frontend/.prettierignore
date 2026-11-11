@@ -1,0 +1,3 @@
+# Generated or managed by tools (Prettier also skips everything in .gitignore)
+package-lock.json
+AGENTS.md

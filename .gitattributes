@@ -1,4 +1,7 @@
-# Shell scripts must keep LF line endings to run in Git Bash / WSL
-*.sh text eol=lf
-mvnw text eol=lf
+# Normalize all text files to LF in the repo and in the working copy,
+# regardless of core.autocrlf (formatters expect LF on every OS)
+* text=auto eol=lf
+
+# Windows batch files need CRLF
 *.cmd text eol=crlf
+*.bat text eol=crlf
