@@ -1,0 +1,52 @@
+# Defaults match docs/architecture.md (section 3, "Konfiguracja").
+# Secrets and local overrides come from backend/.env (outside git), see backend/.env.example.
+spring:
+  application:
+    name: backend
+  config:
+    import: optional:file:.env[.properties]
+  datasource:
+    url: jdbc:h2:file:./data/zdaze
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+
+server:
+  port: 8080
+
+app:
+  zone: Europe/Warsaw
+  clock:
+    fixed: ${APP_CLOCK_FIXED:}
+  routing:
+    provider: ${ROUTING_PROVIDER:mock}
+    google:
+      api-key: ${GOOGLE_MAPS_API_KEY:}
+    daily-call-limit: ${ROUTING_DAILY_CALL_LIMIT:150}
+    traffic-aware: ${ROUTING_TRAFFIC_AWARE:false}
+    traffic-window-min: 120
+  planning:
+    drive-parking-buffer-min: 5
+    walk-max-km: 3
+    bike-max-km: 15
+    transit-max-options: 3
+    recommend-duration-factor: 1.5
+    recommend-duration-extra-min: 10
+  cache:
+    planned-ttl-min: 360
+    near-ttl-min: 10
+    near-window-min: 120
+    live-ttl-sec: 120
+    replan-min-interval-sec: 30
+  ai:
+    provider: ${AI_PROVIDER:mock}
+    base-url: ${AI_BASE_URL:}
+    api-key: ${AI_API_KEY:}
+    model: ${AI_MODEL:}
+    response-format: ${AI_RESPONSE_FORMAT:json_schema}
+    daily-call-limit: ${AI_DAILY_CALL_LIMIT:20}
+    max-image-bytes: 5242880
+    max-items: 60

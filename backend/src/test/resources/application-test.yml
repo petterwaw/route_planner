@@ -1,0 +1,17 @@
+# Test profile: in-memory database and mock providers, regardless of the developer's backend/.env.
+# Tests must never call external APIs (CLAUDE.md, "Twarde zasady").
+spring:
+  datasource:
+    url: jdbc:h2:mem:zdaze-test;DB_CLOSE_DELAY=-1
+
+app:
+  clock:
+    fixed:
+  routing:
+    provider: mock
+    google:
+      api-key:
+  ai:
+    provider: mock
+    base-url:
+    api-key:
