@@ -88,6 +88,14 @@ cd frontend && npm run dev
 
 Aplikacja: `http://localhost:3000`. Sprawdzenie API: `./scripts/smoke.sh`.
 
+Podgląd bazy w przeglądarce (konsola H2, działa, gdy działa backend):
+
+1. Otwórz `http://localhost:8080/h2-console`.
+2. Wpisz: Saved Settings `Generic H2 (Embedded)`, JDBC URL `jdbc:h2:file:./data/zdaze`, User Name `sa`, hasło puste. Kliknij Connect.
+3. Zapytanie, np. `SELECT * FROM settings;`, i Run (Ctrl+Enter).
+
+Domyślny JDBC URL w formularzu to `jdbc:h2:~/test`. Bez zmiany (albo z literówką) H2 utworzy nową, pustą bazę zamiast otworzyć naszą. Konsola nie ma hasła, ale przyjmuje połączenia tylko z tego komputera.
+
 ## 7. Typowe problemy
 
 | Objaw | Przyczyna i rozwiązanie |
