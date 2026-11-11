@@ -26,6 +26,7 @@ paths:
 - Pliki komponentów w kebab-case (`bottom-nav.tsx`), eksporty w PascalCase. Klasy łącz przez `cn()` z `@/lib/utils`.
 - Teksty po angielsku, wpisane w komponentach (bez biblioteki i18n). Godziny w formacie 24-godzinnym, strefa `Europe/Warsaw` przez `Intl.DateTimeFormat` z lokalizacją `en-GB`. Liczby z kropką dziesiętną („3.3 kg").
 - Każdy ekran ma stan ładowania, stan pusty i stan błędu z komunikatem po angielsku.
+- Motyw jasny albo ciemny według ustawień systemu (`prefers-color-scheme`), bez przełącznika w aplikacji. Kolory tylko z tokenów motywu (`bg-background`, `text-muted-foreground`, `text-destructive`…). Kolor spoza tokenów potrzebuje wariantu `dark:`.
 - Kolor nie może być jedynym nośnikiem informacji. Status opcji ma też tekst.
 - Przyciski to `<button>`, pola mają `<label>`.
 

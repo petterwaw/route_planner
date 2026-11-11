@@ -46,7 +46,10 @@ export function BackendStatus() {
     <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
-          <CircleCheck aria-hidden="true" className="size-4 text-emerald-600" />
+          <CircleCheck
+            aria-hidden="true"
+            className="size-4 text-emerald-600 dark:text-emerald-400"
+          />
           Server is running
         </CardTitle>
         <CardDescription>Server time: {formatTime(now)}</CardDescription>
